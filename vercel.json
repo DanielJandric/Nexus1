@@ -1,0 +1,35 @@
+# Vercel Configuration
+{
+  "version": 2,
+  "name": "ticket-system",
+  "builds": [
+    {
+      "src": "server-real.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server-real.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "INIT_DB": "true"
+  },
+  "functions": {
+    "server-real.js": {
+      "maxDuration": 30
+    }
+  }
+}
+
